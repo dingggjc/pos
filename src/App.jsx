@@ -1,4 +1,4 @@
-import './App.css';
+import './index.css';
 import UnauthenticatedRoute from './routes/UnauthenticatedRoute';
 function App() {
     return (
