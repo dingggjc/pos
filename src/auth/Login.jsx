@@ -3,7 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useNavigate } from 'react-router-dom';
 const Login = ({ className, ...props }) => {
+    const navigate = useNavigate();
     return (
         <div className='flex min-h-screen justify-center px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 items-center bg-background'>
             <div
@@ -52,7 +54,11 @@ const Login = ({ className, ...props }) => {
                                         required
                                     />
                                 </div>
-                                <Button type='submit' className='w-full'>
+                                <Button
+                                    type='submit'
+                                    className='w-full'
+                                    onClick={() => navigate('/dashboard')}
+                                >
                                     Login
                                 </Button>
                                 <div className='relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border'>
