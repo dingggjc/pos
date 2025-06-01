@@ -4,7 +4,7 @@ import Main from '@/components/layout/main';
 import LandingPage from '../pages/landing/LandingPage';
 import Login from '@/auth/Login';
 import Dashboard from '@/pages/dashboard/Dashboard';
-import TransactionStatus from '@/pages/dashboard/components/TransactionStatus';
+import Transaction from '@/pages/dashboard/Transaction';
 
 const UnauthenticatedRoute = () => {
     return (
@@ -14,10 +14,7 @@ const UnauthenticatedRoute = () => {
 
             <Route path='/dashboard' element={<Main />}>
                 <Route index element={<Dashboard />} />
-                <Route
-                    path='transaction-status'
-                    element={<TransactionStatus />}
-                />
+                <Route path='transaction' element={<Transaction />} />
             </Route>
         </Routes>
     );

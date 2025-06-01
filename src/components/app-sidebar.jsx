@@ -33,6 +33,7 @@ const data = {
             plan: 'Point of Sale',
         },
     ],
+    navMainLabel: 'Menu',
     navMain: [
         {
             title: 'Dashboard',
@@ -56,8 +57,8 @@ const data = {
             // ],
         },
         {
-            title: 'Transaction Status',
-            url: '/dashboard/transaction-status',
+            title: 'Transaction',
+            url: '/dashboard/transaction',
             icon: Grid2X2Check,
             isActive: true,
             collapsible: false,
@@ -72,7 +73,7 @@ export function AppSidebar({ ...props }) {
                 <TeamSwitcher teams={data.teams} />
             </SidebarHeader>
             <SidebarContent>
-                <NavMain items={data.navMain} />
+                <NavMain items={data.navMain} label={data.navMainLabel} />
             </SidebarContent>
             <SidebarFooter>
                 <NavUser user={data.user} />

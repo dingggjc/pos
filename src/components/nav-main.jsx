@@ -19,11 +19,11 @@ import {
 } from '@/components/ui/sidebar';
 import { useNavigate } from 'react-router-dom';
 
-export function NavMain({ items }) {
+export function NavMain({ items, label = 'Menu' }) {
     const navigate = useNavigate();
     return (
         <SidebarGroup>
-            <SidebarGroupLabel>Menu</SidebarGroupLabel>
+            <SidebarGroupLabel>{label}</SidebarGroupLabel>
             <SidebarMenu>
                 {items.map((item) =>
                     item.collapsible ? (

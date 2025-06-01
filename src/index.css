@@ -110,3 +110,7 @@
         @apply bg-background text-foreground;
     }
 }
+
+.globalContainer {
+    @apply min-h-[100vh] flex-1 rounded-xl mx-5  md:min-h-min;
+}
