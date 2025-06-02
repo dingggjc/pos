@@ -1,41 +1,37 @@
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import TransactionModal from '@/components/modal/TransactionModal';
 
 const labelMap = {
     selectedCarType: 'Car Type',
     selectedPackage: 'Selected Services',
     selectedAddOns: 'Selected Add Ons',
     subTotal: 'Subtotal',
-    discount: 'Discount',
+    selectedDiscount: 'Discount',
     totalAmount: 'Total Amount',
 };
-
-const addOns = [
-    { label: 'Wax Coating', value: 'wax' },
-    { label: 'Tire Shine', value: 'tire-shine' },
-    { label: 'Interior Cleaning', value: 'interior-cleaning' },
-];
 
 const TransactionSummary = ({
     selectedCarType,
     selectedPackage,
     selectedAddOns,
+    selectedDiscount,
+    subTotal,
+    totalAmount = 0,
 }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const summary = {
         selectedCarType: selectedCarType || 'None',
-        selectedPackage: selectedPackage || 'None',
+        selectedPackage: selectedPackage ? selectedPackage.label : 'None',
         selectedAddOns:
             selectedAddOns.length > 0
-                ? selectedAddOns
-                      .map(
-                          (value) =>
-                              addOns.find((a) => a.value === value)?.label ||
-                              value
-                      )
-                      .join(', ')
+                ? selectedAddOns.map((addOn) => addOn.label).join(', ')
                 : 'None',
-        subTotal: '$250.00',
-        discount: '$50',
-        totalAmount: '$200.00',
+
+        subTotal: subTotal !== undefined ? `₱${subTotal.toFixed(2)}` : '₱0.00',
+        selectedDiscount: selectedDiscount ? selectedDiscount.label : 'None',
+        totalAmount: `₱${totalAmount?.toFixed(2) || '0.00'}`,
     };
 
     return (
@@ -55,6 +51,18 @@ const TransactionSummary = ({
                     ))}
                 </TableBody>
             </Table>
+
+            <div className='flex justify-end'>
+                <Button onClick={() => setIsModalOpen(true)}>
+                    Proceed to Payment
+                </Button>
+            </div>
+
+            <TransactionModal
+                open={isModalOpen}
+                onOpenChange={setIsModalOpen}
+                summaryData={summary}
+            />
         </div>
     );
 };

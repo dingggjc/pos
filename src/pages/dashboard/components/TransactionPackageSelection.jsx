@@ -6,27 +6,37 @@ const packages = [
         label: 'Basic Wash',
         description: 'Exterior Wash, Towel Dry',
         value: 'Basic Wash',
-        price: '$10.00',
+        packagePrice: '10.00',
     },
     {
         label: 'Delux Wash',
         description: 'Exterior Wash, Towel Dry, Interior Vacuum',
         value: 'Delux Wash',
-        price: '$20.00',
+        packagePrice: '20.00',
     },
     {
         label: 'Premium Wash',
         description: 'Full Exterior & Interior Cleaning, Wax, Tire Shine',
         value: 'Premium Wash',
-        price: '$30.00',
+        packagePrice: '30.00',
     },
 ];
 
 const TransactionPackageSelection = ({ onSelectPackage }) => {
+    const handleSelect = (selectedValue) => {
+        const selectedPkg = packages.find((pkg) => pkg.value === selectedValue);
+        if (selectedPkg) {
+            onSelectPackage({
+                ...selectedPkg,
+                packagePrice: parseFloat(selectedPkg.packagePrice),
+            });
+        }
+    };
+
     return (
         <div className='space-y-2'>
             <div className='text-base font-bold'>Select A Package</div>
-            <RadioGroup defaultValue='basic' onValueChange={onSelectPackage}>
+            <RadioGroup defaultValue='' onValueChange={handleSelect}>
                 {packages.map((pkg) => (
                     <Label
                         key={pkg.value}
@@ -43,7 +53,7 @@ const TransactionPackageSelection = ({ onSelectPackage }) => {
                             </div>
                         </div>
                         <div className='font-semibold text-black text-sm'>
-                            {pkg.price}
+                            ₱{pkg.packagePrice}
                         </div>
                     </Label>
                 ))}
