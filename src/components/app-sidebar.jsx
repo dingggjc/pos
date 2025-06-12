@@ -1,10 +1,9 @@
 import * as React from 'react';
 import {
-    ArrowLeftRight,
     CarFront,
     Grid2X2Check,
     LayoutDashboard,
-    SquareStack,
+    ShoppingCart,
 } from 'lucide-react';
 
 import { NavMain } from '@/components/nav-main';
@@ -41,25 +40,32 @@ const data = {
             icon: LayoutDashboard,
             isActive: true,
             collapsible: false,
-            // items: [
-            //     {
-            //         title: 'History',
-            //         url: '#',
-            //     },
-            //     {
-            //         title: 'Starred',
-            //         url: '#',
-            //     },
-            //     {
-            //         title: 'Settings',
-            //         url: '#',
-            //     },
-            // ],
+            items: [
+                {
+                    title: 'History',
+                    url: '#',
+                },
+                {
+                    title: 'Starred',
+                    url: '#',
+                },
+                {
+                    title: 'Settings',
+                    url: '#',
+                },
+            ],
         },
         {
             title: 'Transaction',
             url: '/dashboard/transaction',
             icon: Grid2X2Check,
+            isActive: true,
+            collapsible: false,
+        },
+        {
+            title: 'Manage Products',
+            url: '/dashboard/manage-products',
+            icon: ShoppingCart,
             isActive: true,
             collapsible: false,
         },

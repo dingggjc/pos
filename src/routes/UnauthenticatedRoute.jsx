@@ -5,6 +5,7 @@ import LandingPage from '../pages/landing/LandingPage';
 import Login from '@/auth/Login';
 import Dashboard from '@/pages/dashboard/Dashboard';
 import Transaction from '@/pages/dashboard/Transaction';
+import ManageProducts from '@/pages/dashboard/ManageProducts';
 
 const UnauthenticatedRoute = () => {
     return (
@@ -15,6 +16,7 @@ const UnauthenticatedRoute = () => {
             <Route path='/dashboard' element={<Main />}>
                 <Route index element={<Dashboard />} />
                 <Route path='transaction' element={<Transaction />} />
+                <Route path='manage-products' element={<ManageProducts />} />
             </Route>
         </Routes>
     );

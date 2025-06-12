@@ -1,4 +1,10 @@
-import { Label } from '@/components/ui/label';
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from '@/components/ui/carousel';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 const discounts = [
@@ -20,7 +26,6 @@ const discounts = [
         description: 'Get ₱100 off any full detailing service.',
         discountAmount: 100,
     },
-
     {
         label: '20% Off for Returning Customers',
         value: 'returning-20',
@@ -57,32 +62,45 @@ const TransactionDiscounts = ({ onSelectDiscount }) => {
     };
 
     return (
-        <div className='space-y-4'>
-            <div className='text-base font-bold'>Choose Promo/Discounts</div>
-            <RadioGroup
-                className='flex flex-row space-x-4 overflow-x-auto pb-2 w-full max-w-screen-lg mx-auto'
-                onValueChange={handleValueChange}
-            >
-                {discounts.map((disc) => (
-                    <Label
-                        key={disc.value}
-                        htmlFor={disc.value}
-                        className='flex items-start space-x-3 border p-4 rounded-md cursor-pointer min-w-[250px] max-w-[300px] flex-1'
-                    >
-                        <RadioGroupItem
-                            value={disc.value}
-                            id={disc.value}
-                            className='mt-1'
-                        />
-                        <div className='flex flex-col space-y-1'>
-                            <div className='font-medium'>{disc.label}</div>
-                            <div className='text-xs text-gray-400'>
-                                {disc.description}
-                            </div>
-                        </div>
-                    </Label>
-                ))}
-            </RadioGroup>
+        <div className=' max-w-full overflow-x-hidden  '>
+            <div className='space-y-4'>
+                <div className='text-base font-bold'>
+                    Choose Promo/Discounts
+                </div>
+                <RadioGroup onValueChange={handleValueChange}>
+                    <Carousel className='relative mx-5'>
+                        <CarouselContent>
+                            {discounts.map((disc) => (
+                                <CarouselItem
+                                    key={disc.value}
+                                    className='basis-auto border ml-6 justify-between h-full p-4 rounded-md cursor-pointer'
+                                >
+                                    <label
+                                        htmlFor={disc.value}
+                                        className='flex items-start space-x-3 cursor-pointer w-full'
+                                    >
+                                        <RadioGroupItem
+                                            value={disc.value}
+                                            id={disc.value}
+                                            className='mt-1'
+                                        />
+                                        <div className='flex flex-col space-y-1'>
+                                            <div className='font-medium'>
+                                                {disc.label}
+                                            </div>
+                                            <div className='text-xs text-gray-400'>
+                                                {disc.description}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                        <CarouselPrevious className='hidden sm:flex z-10 absolute -left-6 top-1/2 -translate-y-1/2' />
+                        <CarouselNext className='hidden sm:flex z-10 absolute -right-6 top-1/2 -translate-y-1/2' />
+                    </Carousel>
+                </RadioGroup>
+            </div>
         </div>
     );
 };
