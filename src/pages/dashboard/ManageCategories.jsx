@@ -6,14 +6,7 @@ import {
     getFilteredRowModel,
     useReactTable,
 } from '@tanstack/react-table';
-import {
-    AlertTriangle,
-    ArrowUpDown,
-    CheckCircle2,
-    ChevronDown,
-    MoreHorizontal,
-    XCircle,
-} from 'lucide-react';
+import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -23,7 +16,6 @@ import {
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
@@ -40,43 +32,79 @@ import { Badge } from '@/components/ui/badge';
 const data = [
     {
         id: 'm5gr84i9',
-        amount: 316,
-        product: 'Foam Cannon',
-        price: 29.99,
-        stocks: 120,
+        category: 'Medium',
         dateAdded: '2025-06-01',
+        carTypes: ['Sedan', 'SUV'],
     },
     {
         id: '3u1reuv4',
-        amount: 242,
-        product: 'Microfiber Towel Set',
-        price: 19.99,
-        stocks: 80,
+        category: 'Compact',
         dateAdded: '2025-06-03',
+        carTypes: ['SUV', 'Hatchback', 'Crossover'],
     },
     {
         id: 'derv1ws0',
-        amount: 837,
-        product: 'Car Shampoo',
-        price: 49.99,
-        stocks: 30,
+        category: 'Mixed Size',
         dateAdded: '2025-06-05',
+        carTypes: ['Sedan', 'Truck', 'Hatchback', 'Coupe', 'Van'],
     },
     {
         id: '5kma53ae',
-        amount: 874,
-        product: 'Detailing Brush Kit',
-        price: 39.5,
-        stocks: 200,
+        category: 'Family',
         dateAdded: '2025-06-06',
+        carTypes: ['Van', 'Wagon', 'Convertible'],
     },
     {
         id: 'bhqecj4p',
-        amount: 721,
-        product: 'Tire & Rim Cleaner',
-        price: 25.0,
-        stocks: 0,
+        category: 'All Vehicle Types',
         dateAdded: '2025-06-08',
+        carTypes: [
+            'Sedan',
+            'SUV',
+            'Truck',
+            'Van',
+            'Hatchback',
+            'Convertible',
+            'Coupe',
+            'Wagon',
+            'Jeep',
+            'Pickup',
+            'Crossover',
+            'Mini',
+            'Luxury',
+            'Sports Car',
+            'Electric',
+        ],
+    },
+    {
+        id: 'xe8qztl1',
+        category: 'City Ride',
+        dateAdded: '2025-06-09',
+        carTypes: ['Sedan', 'Electric', 'Mini'],
+    },
+    {
+        id: 't8r2wzx0',
+        category: 'Premium Class',
+        dateAdded: '2025-06-10',
+        carTypes: ['Luxury', 'Coupe', 'Convertible', 'Sports Car'],
+    },
+    {
+        id: 'p3l7nvv5',
+        category: 'Outdoor Utility',
+        dateAdded: '2025-06-11',
+        carTypes: ['SUV', 'Crossover', 'Jeep', 'Pickup'],
+    },
+    {
+        id: 'k1f9umw7',
+        category: 'Heavy Duty',
+        dateAdded: '2025-06-12',
+        carTypes: ['Truck', 'SUV', 'Van', 'Jeep'],
+    },
+    {
+        id: 'b2r0cgf6',
+        category: 'Urban Small',
+        dateAdded: '2025-06-13',
+        carTypes: ['Sedan', 'Hatchback', 'Mini', 'Luxury'],
     },
 ];
 
@@ -107,7 +135,7 @@ const columns = [
     },
 
     {
-        accessorKey: 'product',
+        accessorKey: 'category',
         header: ({ column }) => (
             <Button
                 variant='ghost'
@@ -115,62 +143,41 @@ const columns = [
                     column.toggleSorting(column.getIsSorted() === 'asc')
                 }
             >
-                Product Name
+                Category Name
                 <ArrowUpDown className='ml-2 h-4 w-4' />
             </Button>
         ),
         cell: ({ row }) => (
-            <div className='font-medium'>{row.getValue('product')}</div>
+            <div className='font-medium'>{row.getValue('category')}</div>
         ),
     },
 
     {
-        accessorKey: 'price',
-        header: () => <div>Price</div>,
+        id: 'carTypes',
+        header: 'Car Types',
         cell: ({ row }) => {
-            const amount = parseFloat(row.getValue('price'));
-            const formatted = new Intl.NumberFormat('en-PH', {
-                style: 'currency',
-                currency: 'PHP',
-            }).format(amount);
-            return <div>{formatted}</div>;
-        },
-    },
-    {
-        accessorKey: 'stocks',
-        header: 'Stocks',
-        cell: ({ row }) => (
-            <div className='capitalize'>{row.getValue('stocks')}</div>
-        ),
-    },
-    {
-        id: 'status',
-        header: 'Stock Status',
-        cell: ({ row }) => {
-            const stock = row.original.stocks;
+            const carTypes = row.original.carTypes;
+            const visible = carTypes.slice(0, 4);
+            const remaining = carTypes.length - visible.length;
 
-            if (stock > 50) {
-                return (
-                    <Badge className='flex items-center gap-1 border-green-400  bg-green-100 text-green-600'>
-                        <CheckCircle2 className='h-3 w-3' />
-                        In Stock
-                    </Badge>
-                );
-            } else if (stock > 0) {
-                return (
-                    <Badge className='flex items-center gap-1 border-yellow-400 bg-yellow-50 text-yellow-600 '>
-                        <AlertTriangle className='h-3 w-3' />
-                        Low Stock
-                    </Badge>
-                );
-            } else {
-                return (
-                    <Badge className='flex items-center gap-1 border-red-400 bg-red-50 text-red-600'>
-                        <XCircle className='h-3 w-3' />
-                        Out of Stock
-                    </Badge>
-                );
-            }
+            return (
+                <div className='flex flex-wrap gap-1 max-w-[300px]'>
+                    {visible.map((type) => (
+                        <Badge
+                            key={type}
+                            className='flex items-center gap-1 border bg-purple-200 text-purple-500'
+                        >
+                            {type}
+                        </Badge>
+                    ))}
+
+                    {remaining > 0 && (
+                        <Badge className='border bg-purple-200 text-purple-500'>
+                            +{remaining} more
+                        </Badge>
+                    )}
+                </div>
+            );
         },
     },
 
@@ -217,7 +224,7 @@ const columns = [
     },
 ];
 
-const ManageProducts = () => {
+const ManageCategories = () => {
     const [sorting, setSorting] = useState([]);
     const [columnFilters, setColumnFilters] = useState([]);
     const [columnVisibility, setColumnVisibility] = useState({});
@@ -244,7 +251,7 @@ const ManageProducts = () => {
 
     return (
         <div className='globalContainer'>
-            <div className='text-2xl font-bold mb-6'>Manage Products</div>
+            <div className='text-2xl font-bold mb-6'>Manage Categories</div>
             <div className='flex items-center py-4'>
                 <Input
                     placeholder='Filter product...'
@@ -363,4 +370,4 @@ const ManageProducts = () => {
     );
 };
 
-export default ManageProducts;
+export default ManageCategories;

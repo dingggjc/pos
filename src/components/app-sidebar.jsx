@@ -4,6 +4,7 @@ import {
     Grid2X2Check,
     LayoutDashboard,
     ShoppingCart,
+    Sparkles,
 } from 'lucide-react';
 
 import { NavMain } from '@/components/nav-main';
@@ -59,6 +60,13 @@ const data = {
             title: 'Transaction',
             url: '/dashboard/transaction',
             icon: Grid2X2Check,
+            isActive: true,
+            collapsible: false,
+        },
+        {
+            title: 'Manage Categories',
+            url: '/dashboard/manage-categories',
+            icon: Sparkles,
             isActive: true,
             collapsible: false,
         },

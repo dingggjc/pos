@@ -6,6 +6,7 @@ import Login from '@/auth/Login';
 import Dashboard from '@/pages/dashboard/Dashboard';
 import Transaction from '@/pages/dashboard/Transaction';
 import ManageProducts from '@/pages/dashboard/ManageProducts';
+import ManageCategories from '@/pages/dashboard/ManageCategories';
 
 const UnauthenticatedRoute = () => {
     return (
@@ -17,6 +18,10 @@ const UnauthenticatedRoute = () => {
                 <Route index element={<Dashboard />} />
                 <Route path='transaction' element={<Transaction />} />
                 <Route path='manage-products' element={<ManageProducts />} />
+                <Route
+                    path='manage-categories'
+                    element={<ManageCategories />}
+                />
             </Route>
         </Routes>
     );
