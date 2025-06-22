@@ -136,18 +136,18 @@ const columns = [
             const remaining = carTypes.length - visible.length;
 
             return (
-                <div className='flex flex-wrap gap-1 max-w-[300px]'>
+                <div className='flex flex-wrap gap-2 max-w-[300px]'>
                     {visible.map((type) => (
                         <Badge
                             key={type}
-                            className='flex items-center gap-1 border bg-purple-200 text-purple-500'
+                            className='flex items-center gap-1 border border-gray-200/30 bg-gray-100/80 text-gray-700 dark:bg-gray-700/20 dark:text-gray-300 hover:bg-gray-200/60 dark:hover:bg-gray-700/40 transition-colors px-2.5 py-1 rounded-full text-xs font-medium'
                         >
                             {type}
                         </Badge>
                     ))}
 
                     {remaining > 0 && (
-                        <Badge className='border bg-purple-200 text-purple-500'>
+                        <Badge className='border border-gray-200/30 bg-gray-100/80 text-gray-500 dark:bg-gray-700/20 dark:text-gray-400 px-2.5 py-1 rounded-full text-xs font-medium'>
                             +{remaining} more
                         </Badge>
                     )}

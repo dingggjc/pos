@@ -158,7 +158,7 @@ const columns = [
         cell: ({ row }) => <div>{row.getValue('customer')}</div>,
     },
     {
-        accessorKey: '',
+        accessorKey: 'washer',
         header: 'Washer',
         cell: ({ row }) => <div>{row.getValue('washer')}</div>,
     },
@@ -236,8 +236,8 @@ const OperationsTransactionReport = () => {
                 id: item.id,
                 invoice: item.invoice,
                 transactionDate: item.transactionDate,
-                customerName: item.customer?.name || '',
-                washerName: item.washer?.name || '',
+                customer: item.customer?.name || '',
+                washer: item.washer?.name || '',
                 description,
                 total,
             };
