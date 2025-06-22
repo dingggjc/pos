@@ -49,7 +49,7 @@ const Footer = ({
         },
     ],
 
-    copyright = '© 2024 Shadcnblocks.com. All rights reserved.',
+    copyright = '© 2024 charles.com. All rights reserved.',
 
     bottomLinks = [
         { text: 'Terms and Conditions', url: '#' },
