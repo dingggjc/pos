@@ -27,84 +27,112 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
 
 const data = [
     {
-        id: 'm5gr84i9',
-        category: 'Medium',
+        packageName: 'Ultimate Foam Kit',
+        category: 'Exterior',
+        product: 'Foam Cannon',
+        price: 29.99,
         dateAdded: '2025-06-01',
-        carTypes: ['Sedan', 'SUV'],
     },
     {
-        id: '3u1reuv4',
-        category: 'Compact',
+        packageName: 'Towel Pro Pack',
+        category: 'Interior',
+        product: 'Microfiber Towel Set',
+        price: 19.99,
         dateAdded: '2025-06-03',
-        carTypes: ['SUV', 'Hatchback', 'Crossover'],
     },
     {
-        id: 'derv1ws0',
-        category: 'Mixed Size',
+        packageName: 'Shampoo Supreme',
+        category: 'Exterior',
+        product: 'Car Shampoo',
+        price: 49.99,
         dateAdded: '2025-06-05',
-        carTypes: ['Sedan', 'Truck', 'Hatchback', 'Coupe', 'Van'],
     },
     {
-        id: '5kma53ae',
-        category: 'Family',
+        packageName: 'Brush Essentials',
+        category: 'Detailing Tools',
+        product: 'Detailing Brush Kit',
+        price: 39.5,
         dateAdded: '2025-06-06',
-        carTypes: ['Van', 'Wagon', 'Convertible'],
     },
     {
-        id: 'bhqecj4p',
-        category: 'All Vehicle Types',
+        packageName: 'Tire Spark Pack',
+        category: 'Wheels & Tires',
+        product: 'Tire & Rim Cleaner',
+        price: 25.0,
         dateAdded: '2025-06-08',
-        carTypes: [
-            'Sedan',
-            'SUV',
-            'Truck',
-            'Van',
-            'Hatchback',
-            'Convertible',
-            'Coupe',
-            'Wagon',
-            'Jeep',
-            'Pickup',
-            'Crossover',
-            'Mini',
-            'Luxury',
-            'Sports Car',
-            'Electric',
-        ],
     },
     {
-        id: 'xe8qztl1',
-        category: 'City Ride',
+        packageName: 'Brush & Shine',
+        category: 'Wheels & Tires',
+        product: 'Wheel Brush',
+        price: 15.99,
         dateAdded: '2025-06-09',
-        carTypes: ['Sedan', 'Electric', 'Mini'],
     },
     {
-        id: 't8r2wzx0',
-        category: 'Premium Class',
+        packageName: 'Smooth Surface Kit',
+        category: 'Exterior',
+        product: 'Clay Bar Kit',
+        price: 34.99,
         dateAdded: '2025-06-10',
-        carTypes: ['Luxury', 'Coupe', 'Convertible', 'Sports Car'],
     },
     {
-        id: 'p3l7nvv5',
-        category: 'Outdoor Utility',
+        packageName: 'Headlight Hero',
+        category: 'Restoration',
+        product: 'Headlight Restorer',
+        price: 22.5,
         dateAdded: '2025-06-11',
-        carTypes: ['SUV', 'Crossover', 'Jeep', 'Pickup'],
     },
     {
-        id: 'k1f9umw7',
-        category: 'Heavy Duty',
+        packageName: 'Fresh Cabin',
+        category: 'Interior',
+        product: 'Interior Cleaner',
+        price: 18.99,
         dateAdded: '2025-06-12',
-        carTypes: ['Truck', 'SUV', 'Van', 'Jeep'],
     },
     {
-        id: 'b2r0cgf6',
-        category: 'Urban Small',
+        packageName: 'Leather Luxe',
+        category: 'Interior',
+        product: 'Leather Conditioner',
+        price: 27.5,
         dateAdded: '2025-06-13',
-        carTypes: ['Sedan', 'Hatchback', 'Mini', 'Luxury'],
+    },
+    {
+        packageName: 'Shine Pads Set',
+        category: 'Accessories',
+        product: 'Wax Applicator Pads',
+        price: 12.99,
+        dateAdded: '2025-06-14',
+    },
+    {
+        packageName: 'Quick Dry Duo',
+        category: 'Exterior',
+        product: 'Drying Towel',
+        price: 24.99,
+        dateAdded: '2025-06-15',
+    },
+    {
+        packageName: 'Trim Revive Kit',
+        category: 'Restoration',
+        product: 'Trim Restorer',
+        price: 16.5,
+        dateAdded: '2025-06-16',
+    },
+    {
+        packageName: 'Crystal View',
+        category: 'Glass',
+        product: 'Glass Cleaner',
+        price: 14.99,
+        dateAdded: '2025-06-17',
+    },
+    {
+        packageName: 'Pressure Pro',
+        category: 'Exterior',
+        product: 'Pressure Washer',
+        price: 199.99,
+        dateAdded: '2025-06-18',
     },
 ];
 
@@ -135,7 +163,7 @@ const columns = [
     },
 
     {
-        accessorKey: 'category',
+        accessorKey: 'packageName',
         header: ({ column }) => (
             <Button
                 variant='ghost'
@@ -143,48 +171,40 @@ const columns = [
                     column.toggleSorting(column.getIsSorted() === 'asc')
                 }
             >
-                Category Name
+                Package Name
                 <ArrowUpDown className='ml-2 h-4 w-4' />
             </Button>
         ),
         cell: ({ row }) => (
-            <div className='font-medium'>{row.getValue('category')}</div>
+            <div className='font-medium'>{row.getValue('packageName')}</div>
+        ),
+    },
+    {
+        accessorKey: 'category',
+        header: 'Category',
+        cell: ({ row }) => (
+            <div className='capitalize'>{row.getValue('category')}</div>
         ),
     },
 
     {
-        id: 'carTypes',
-        header: 'Car Types',
-        accessorFn: (row) => row.carTypes.join(', '),
+        accessorKey: 'product',
+        header: 'Product',
+        cell: ({ row }) => (
+            <div className='capitalize'>{row.getValue('product')}</div>
+        ),
+    },
+
+    {
+        accessorKey: 'price',
+        header: () => <div>Price</div>,
         cell: ({ row }) => {
-            const carTypes = row.original.carTypes;
-            const visible = carTypes.slice(0, 4);
-            const remaining = carTypes.length - visible.length;
-
-            return (
-                <div className='flex flex-wrap gap-1 max-w-[300px]'>
-                    {visible.map((type) => (
-                        <Badge
-                            key={type}
-                            className='flex items-center gap-1 border bg-purple-200 text-purple-500'
-                        >
-                            {type}
-                        </Badge>
-                    ))}
-
-                    {remaining > 0 && (
-                        <Badge className='border bg-purple-200 text-purple-500'>
-                            +{remaining} more
-                        </Badge>
-                    )}
-                </div>
-            );
-        },
-        filterFn: (row, id, filterValue) => {
-            if (!filterValue) return true;
-            return row.original.carTypes.some((type) =>
-                type.toLowerCase().includes(filterValue.toLowerCase())
-            );
+            const amount = parseFloat(row.getValue('price'));
+            const formatted = new Intl.NumberFormat('en-PH', {
+                style: 'currency',
+                currency: 'PHP',
+            }).format(amount);
+            return <div>{formatted}</div>;
         },
     },
 
@@ -231,7 +251,7 @@ const columns = [
     },
 ];
 
-const ManageCategories = () => {
+const ManagePackages = () => {
     const [sorting, setSorting] = useState([]);
     const [columnFilters, setColumnFilters] = useState([]);
     const [columnVisibility, setColumnVisibility] = useState({});
@@ -264,14 +284,16 @@ const ManageCategories = () => {
 
     return (
         <div className='globalContainer'>
-            <div className='text-2xl font-bold mb-6'>Manage Categories</div>
+            <div className='text-2xl font-bold mb-6'>Manage Packages</div>
             <div className='flex items-center py-4'>
                 <Input
-                    placeholder='Filter Car Type ...'
-                    value={table.getColumn('carTypes')?.getFilterValue() ?? ''}
+                    placeholder='Filter Packages...'
+                    value={
+                        table.getColumn('packageName')?.getFilterValue() ?? ''
+                    }
                     onChange={(event) =>
                         table
-                            .getColumn('carTypes')
+                            .getColumn('packageName')
                             ?.setFilterValue(event.target.value)
                     }
                     className='max-w-sm'
@@ -383,4 +405,4 @@ const ManageCategories = () => {
     );
 };
 
-export default ManageCategories;
+export default ManagePackages;

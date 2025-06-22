@@ -10,47 +10,64 @@ import {
 import { Label } from '../ui/label';
 import { Button } from '../ui/button';
 import { Separator } from '@/components/ui/separator';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const TransactionModal = ({ open, onOpenChange, summaryData }) => {
     return (
-        <div className='mx-8'>
-            <Dialog open={open} onOpenChange={onOpenChange}>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Transaction Summary</DialogTitle>
-                        <DialogDescription>
-                            Total: {summaryData?.totalAmount || 'N/A'}
-                        </DialogDescription>
-                    </DialogHeader>
+        <Dialog open={open} onOpenChange={onOpenChange}>
+            <DialogContent className='sm:max-w-[425px] md:max-w-[600px]'>
+                <DialogHeader>
+                    <DialogTitle className='text-xl'>
+                        Transaction Summary
+                    </DialogTitle>
+                    <DialogDescription className='text-base'>
+                        Review your transaction details
+                    </DialogDescription>
+                </DialogHeader>
 
-                    <div className='grid gap-4 mt-4 px-4 sm:px-0  p-4  h-[300px] overflow-auto'>
-                        {summaryData &&
-                            Object.entries(summaryData).map(([key, value]) => (
-                                <div
-                                    key={key}
-                                    className='grid gap-1  p-4 border  rounded-sm shadow-sm'
-                                >
-                                    <Label className='capitalize'>
-                                        {key.replace(/([A-Z])/g, ' $1')}
-                                    </Label>
-                                    <Separator />
-                                    <p className=' text-gray-500 break-words'>
-                                        {value}
-                                    </p>
-                                </div>
-                            ))}
+                <div className='space-y-4'>
+                    <div className='flex items-center justify-between p-4 rounded-lg bg-muted/50'>
+                        <span className='text-sm font-medium'>
+                            Total Amount
+                        </span>
+                        <span className='text-lg font-semibold'>
+                            {summaryData?.totalAmount || 'N/A'}
+                        </span>
                     </div>
 
-                    <DialogFooter className='mt-6 gap-2'>
-                        <DialogClose asChild>
-                            <Button variant='outline'>Cancel</Button>
-                        </DialogClose>
-                        {/* <Button onClick={() => onOpenChange(false)}> */}
-                        <Button>Proceed</Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
-        </div>
+                    <ScrollArea className='h-[300px] rounded-md'>
+                        <div className='space-y-3 pr-3'>
+                            {summaryData &&
+                                Object.entries(summaryData).map(
+                                    ([key, value]) => (
+                                        <div key={key} className='space-y-2'>
+                                            <div className='flex justify-between items-start'>
+                                                <Label className='text-sm font-medium capitalize'>
+                                                    {key.replace(
+                                                        /([A-Z])/g,
+                                                        ' $1'
+                                                    )}
+                                                </Label>
+                                                <p className='text-sm text-muted-foreground text-right break-words max-w-[60%]'>
+                                                    {value}
+                                                </p>
+                                            </div>
+                                            <Separator />
+                                        </div>
+                                    )
+                                )}
+                        </div>
+                    </ScrollArea>
+                </div>
+
+                <DialogFooter className='gap-2 sm:gap-2'>
+                    <DialogClose asChild>
+                        <Button variant='outline'>Cancel</Button>
+                    </DialogClose>
+                    <Button type='submit'>Proceed</Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     );
 };
 

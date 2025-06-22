@@ -3,8 +3,7 @@ import {
     CarFront,
     Grid2X2Check,
     LayoutDashboard,
-    ShoppingCart,
-    Sparkles,
+    SlidersHorizontal,
 } from 'lucide-react';
 
 import { NavMain } from '@/components/nav-main';
@@ -33,28 +32,14 @@ const data = {
             plan: 'Point of Sale',
         },
     ],
-    navMainLabel: 'Menu',
-    navMain: [
+    navMainLabelMenu: 'Menu',
+    navMainMenu: [
         {
             title: 'Dashboard',
             url: '/dashboard',
             icon: LayoutDashboard,
             isActive: true,
             collapsible: false,
-            items: [
-                {
-                    title: 'History',
-                    url: '#',
-                },
-                {
-                    title: 'Starred',
-                    url: '#',
-                },
-                {
-                    title: 'Settings',
-                    url: '#',
-                },
-            ],
         },
         {
             title: 'Transaction',
@@ -63,19 +48,32 @@ const data = {
             isActive: true,
             collapsible: false,
         },
+    ],
+    navMainLabelService: 'Services',
+    navMainService: [
         {
-            title: 'Manage Categories',
-            url: '/dashboard/manage-categories',
-            icon: Sparkles,
+            title: 'Services Management',
+            icon: SlidersHorizontal,
             isActive: true,
-            collapsible: false,
-        },
-        {
-            title: 'Manage Products',
-            url: '/dashboard/manage-products',
-            icon: ShoppingCart,
-            isActive: true,
-            collapsible: false,
+            collapsible: true,
+            items: [
+                {
+                    title: 'Manage Categories',
+                    url: '/dashboard/manage-categories',
+                },
+                {
+                    title: 'Manage Products',
+                    url: '/dashboard/manage-products',
+                },
+                {
+                    title: 'Manage Packages',
+                    url: '/dashboard/manage-packages',
+                },
+                {
+                    title: 'Manage Add Ons',
+                    url: '/dashboard/manage-addons',
+                },
+            ],
         },
     ],
 };
@@ -87,8 +85,16 @@ export function AppSidebar({ ...props }) {
                 <TeamSwitcher teams={data.teams} />
             </SidebarHeader>
             <SidebarContent>
-                <NavMain items={data.navMain} label={data.navMainLabel} />
+                <NavMain
+                    items={data.navMainMenu}
+                    label={data.navMainLabelMenu}
+                />
+                <NavMain
+                    items={data.navMainService}
+                    label={data.navMainLabelService}
+                />
             </SidebarContent>
+
             <SidebarFooter>
                 <NavUser user={data.user} />
             </SidebarFooter>

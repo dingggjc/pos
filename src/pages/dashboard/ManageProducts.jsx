@@ -23,7 +23,6 @@ import {
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
@@ -78,8 +77,87 @@ const data = [
         stocks: 0,
         dateAdded: '2025-06-08',
     },
+    {
+        id: 'dse231s',
+        amount: 800,
+        product: 'Wheel Brush',
+        price: 15.99,
+        stocks: 45,
+        dateAdded: '2025-06-09',
+    },
+    {
+        id: 'klo342d',
+        amount: 532,
+        product: 'Clay Bar Kit',
+        price: 34.99,
+        stocks: 25,
+        dateAdded: '2025-06-10',
+    },
+    {
+        id: 'plm923n',
+        amount: 421,
+        product: 'Headlight Restorer',
+        price: 22.5,
+        stocks: 15,
+        dateAdded: '2025-06-11',
+    },
+    {
+        id: 'qwe789r',
+        amount: 689,
+        product: 'Interior Cleaner',
+        price: 18.99,
+        stocks: 60,
+        dateAdded: '2025-06-12',
+    },
+    {
+        id: 'asd456t',
+        amount: 345,
+        product: 'Leather Conditioner',
+        price: 27.5,
+        stocks: 30,
+        dateAdded: '2025-06-13',
+    },
+    {
+        id: 'zxc123y',
+        amount: 278,
+        product: 'Wax Applicator Pads',
+        price: 12.99,
+        stocks: 85,
+        dateAdded: '2025-06-14',
+    },
+    {
+        id: 'vbn789u',
+        amount: 512,
+        product: 'Drying Towel',
+        price: 24.99,
+        stocks: 40,
+        dateAdded: '2025-06-15',
+    },
+    {
+        id: 'jkl654i',
+        amount: 387,
+        product: 'Trim Restorer',
+        price: 16.5,
+        stocks: 20,
+        dateAdded: '2025-06-16',
+    },
+    {
+        id: 'tyu321o',
+        amount: 623,
+        product: 'Glass Cleaner',
+        price: 14.99,
+        stocks: 55,
+        dateAdded: '2025-06-17',
+    },
+    {
+        id: 'ghj987p',
+        amount: 456,
+        product: 'Pressure Washer',
+        price: 199.99,
+        stocks: 10,
+        dateAdded: '2025-06-18',
+    },
 ];
-
 const columns = [
     {
         id: 'select',
@@ -226,6 +304,12 @@ const ManageProducts = () => {
     const table = useReactTable({
         data,
         columns,
+        initialState: {
+            pagination: {
+                pageSize: 10,
+                pageIndex: 0,
+            },
+        },
         state: {
             sorting,
             columnFilters,
