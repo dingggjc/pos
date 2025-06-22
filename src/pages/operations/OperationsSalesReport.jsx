@@ -6,19 +6,12 @@ import {
     getFilteredRowModel,
     useReactTable,
 } from '@tanstack/react-table';
-import {
-    ArrowUpDown,
-    ChevronDown,
-    ChevronDownIcon,
-    MoreHorizontal,
-    Printer,
-} from 'lucide-react';
+import { ChevronDownIcon, MoreHorizontal } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+
 import {
     DropdownMenu,
-    DropdownMenuCheckboxItem,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
@@ -40,147 +33,155 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from '@/components/ui/popover';
+import ExportFunction from '@/components/exports/ExportFunction ';
 
-const data = [
+const rawData = [
     {
         id: 't1',
         invoice: 'INV-1001',
-        customer: 'Carlos Dela Cruz',
-        washer: 'John Santos',
-        transactionDate: '2025-06-01',
-        total: '300',
+        transactionDate: '2025-06-22',
+        package: {
+            name: 'Full Wash',
+            price: 200,
+        },
+        products: [
+            { name: 'Air Freshener', qty: 2, price: 50 },
+            { name: 'Shampoo', qty: 1, price: 80 },
+        ],
+        discount: 20,
     },
     {
         id: 't2',
         invoice: 'INV-1002',
-        customer: 'Angela Ramirez',
-        washer: 'Maria Lopez',
-        transactionDate: '2025-06-05',
-        total: '150',
+        transactionDate: '2025-06-23',
+        package: {
+            name: 'Interior Detail',
+            price: 400,
+        },
+        products: [],
+        discount: 0,
     },
     {
         id: 't3',
         invoice: 'INV-1003',
-        customer: 'Marco Villanueva',
-        washer: 'Kevin Reyes',
-        transactionDate: '2025-06-10',
-        total: '500',
+        transactionDate: '2025-06-20',
+        package: {
+            name: 'Premium Wash',
+            price: 300,
+        },
+        products: [{ name: 'Tire Black', qty: 1, price: 70 }],
+        discount: 30,
     },
     {
         id: 't4',
         invoice: 'INV-1004',
-        customer: 'Elena Soriano',
-        washer: 'Jenny Cruz',
-        transactionDate: '2025-06-13',
-        total: '450',
+        transactionDate: '2025-06-18',
+        package: {
+            name: 'Quick Wash',
+            price: 150,
+        },
+        products: [{ name: 'Engine Detail', qty: 1, price: 200 }],
+        discount: 0,
     },
     {
         id: 't5',
         invoice: 'INV-1005',
-        customer: 'Luis Mendoza',
-        washer: 'John Santos',
-        transactionDate: '2025-06-17',
-        total: '200',
+        transactionDate: '2025-06-16',
+        package: {
+            name: 'Deluxe Wash',
+            price: 250,
+        },
+        products: [
+            { name: 'Shampoo', qty: 2, price: 80 },
+            { name: 'Tire Black', qty: 1, price: 70 },
+        ],
+        discount: 50,
     },
     {
         id: 't6',
         invoice: 'INV-1006',
-        customer: 'Grace Bautista',
-        washer: 'Maria Lopez',
-        transactionDate: '2025-06-18',
-        total: '350',
+        transactionDate: '2025-06-15',
+        package: {
+            name: 'Interior Detail',
+            price: 400,
+        },
+        products: [{ name: 'Dashboard Polish', qty: 1, price: 120 }],
+        discount: 0,
     },
     {
         id: 't7',
         invoice: 'INV-1007',
-        customer: 'Nathaniel Cruz',
-        washer: 'Kevin Reyes',
-        transactionDate: '2025-06-20',
-        total: '400',
+        transactionDate: '2025-06-14',
+        package: {
+            name: 'Full Wash',
+            price: 200,
+        },
+        products: [],
+        discount: 10,
     },
     {
         id: 't8',
         invoice: 'INV-1008',
-        customer: 'Bianca Gutierrez',
-        washer: 'Jenny Cruz',
-        transactionDate: '2025-06-21',
-        total: '275',
+        transactionDate: '2025-06-12',
+        package: {
+            name: 'Quick Wash',
+            price: 150,
+        },
+        products: [
+            { name: 'Shampoo', qty: 1, price: 80 },
+            { name: 'Air Freshener', qty: 1, price: 50 },
+        ],
+        discount: 15,
     },
     {
         id: 't9',
         invoice: 'INV-1009',
-        customer: 'Paolo Morales',
-        washer: 'John Santos',
-        transactionDate: '2025-06-22',
-        total: '325',
+        transactionDate: '2025-06-10',
+        package: {
+            name: 'Premium Wash',
+            price: 300,
+        },
+        products: [{ name: 'Waxing', qty: 1, price: 200 }],
+        discount: 25,
     },
     {
         id: 't10',
         invoice: 'INV-1010',
-        customer: 'Trisha Lim',
-        washer: 'Maria Lopez',
-        transactionDate: '2025-06-23',
-        total: '180',
+        transactionDate: '2025-06-08',
+        package: {
+            name: 'Deluxe Wash',
+            price: 250,
+        },
+        products: [],
+        discount: 0,
     },
 ];
 
 const columns = [
     {
-        id: 'select',
-        header: ({ table }) => (
-            <Checkbox
-                checked={
-                    table.getIsAllPageRowsSelected() ||
-                    (table.getIsSomePageRowsSelected() && 'indeterminate')
-                }
-                onCheckedChange={(value) =>
-                    table.toggleAllPageRowsSelected(!!value)
-                }
-                aria-label='Select all'
-            />
-        ),
+        accessorKey: 'transactionDate',
+        header: 'Transaction Date',
         cell: ({ row }) => (
-            <Checkbox
-                checked={row.getIsSelected()}
-                onCheckedChange={(value) => row.toggleSelected(!!value)}
-                aria-label='Select row'
-            />
+            <div className='italic'>{row.getValue('transactionDate')}</div>
         ),
-        enableSorting: false,
-        enableHiding: false,
     },
     {
         accessorKey: 'invoice',
-        header: ({ column }) => (
-            <Button
-                variant='ghost'
-                onClick={() =>
-                    column.toggleSorting(column.getIsSorted() === 'asc')
-                }
-            >
-                Invoice
-                <ArrowUpDown className='ml-2 h-4 w-4' />
-            </Button>
-        ),
+        header: 'Invoice',
         cell: ({ row }) => (
             <div className='font-medium'>{row.getValue('invoice')}</div>
         ),
     },
     {
-        accessorKey: 'customer',
-        header: 'Customer',
-        cell: ({ row }) => <div>{row.getValue('customer')}</div>,
+        accessorKey: 'description',
+        header: 'Item(s)',
+        cell: ({ row }) => <div>{row.getValue('description')}</div>,
     },
     {
-        accessorKey: 'washer',
-        header: 'Washer',
-        cell: ({ row }) => <div>{row.getValue('washer')}</div>,
-    },
-    {
-        accessorKey: 'transactionDate',
-        header: 'Transaction Date',
+        accessorKey: 'discount',
+        header: 'Discounts',
         cell: ({ row }) => (
-            <div className='italic'>{row.getValue('transactionDate')}</div>
+            <div className='font-medium'>{row.getValue('discount')}%</div>
         ),
     },
     {
@@ -193,22 +194,20 @@ const columns = [
     {
         id: 'actions',
         enableHiding: false,
-        cell: () => {
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant='ghost' className='h-8 w-8 p-0'>
-                            <span className='sr-only'>Open menu</span>
-                            <MoreHorizontal className='h-4 w-4' />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align='end'>
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>View</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            );
-        },
+        cell: () => (
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant='ghost' className='h-8 w-8 p-0'>
+                        <span className='sr-only'>Open menu</span>
+                        <MoreHorizontal className='h-4 w-4' />
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align='end'>
+                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                    <DropdownMenuItem>View</DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        ),
     },
 ];
 
@@ -223,28 +222,44 @@ const OperationsSalesReport = () => {
     const [openTo, setOpenTo] = useState(false);
 
     const filteredData = useMemo(() => {
-        if (!fromDate && !toDate) return data;
+        const base =
+            !fromDate && !toDate
+                ? rawData
+                : rawData.filter((item) => {
+                      const d = new Date(item.transactionDate);
+                      if (fromDate && !toDate) return d >= fromDate;
+                      if (!fromDate && toDate) return d <= toDate;
+                      if (fromDate && toDate) {
+                          const end = new Date(toDate);
+                          end.setHours(23, 59, 59, 999);
+                          return d >= fromDate && d <= end;
+                      }
+                      return true;
+                  });
 
-        return data.filter((item) => {
-            const transactionDate = new Date(item.transactionDate);
+        return base.map((item) => {
+            const addOnText = item.products
+                .map((p) => `${p.name} ×${p.qty}`)
+                .join(', ');
+            const description =
+                `${item.package.name} (Package)` +
+                (addOnText ? ` + ${addOnText}` : '');
 
-            if (fromDate && !toDate) {
-                return transactionDate >= fromDate;
-            }
+            const total = Number(
+                (
+                    item.package.price +
+                    item.products.reduce((sum, p) => sum + p.qty * p.price, 0)
+                ).toFixed(2)
+            );
 
-            if (!fromDate && toDate) {
-                return transactionDate <= toDate;
-            }
-
-            if (fromDate && toDate) {
-                const endOfDay = new Date(toDate);
-                endOfDay.setHours(23, 59, 59, 999);
-                return (
-                    transactionDate >= fromDate && transactionDate <= endOfDay
-                );
-            }
-
-            return true;
+            return {
+                id: item.id,
+                invoice: item.invoice,
+                transactionDate: item.transactionDate,
+                description,
+                discount: item.discount,
+                total, // Now properly formatted as a number
+            };
         });
     }, [fromDate, toDate]);
 
@@ -280,6 +295,22 @@ const OperationsSalesReport = () => {
     const clearDateFilters = () => {
         setFromDate(null);
         setToDate(null);
+    };
+
+    const exportData = [...filteredData];
+    if (exportData.length > 0) {
+        exportData.push({
+            invoice: '',
+            transactionDate: '',
+            description: 'GRAND TOTAL',
+            discount: '',
+            total: Number(grandTotal.toFixed(2)),
+        });
+    }
+
+    const dateRange = {
+        from: fromDate,
+        to: toDate,
     };
 
     return (
@@ -383,13 +414,11 @@ const OperationsSalesReport = () => {
                     )}
                 </div>
                 <div className='md:ml-auto w-full md:w-auto'>
-                    <Button
-                        variant='default'
-                        className='flex w-full md:w-auto justify-center gap-2'
-                    >
-                        <Printer className='h-4 w-4' />
-                        Print Report
-                    </Button>
+                    <ExportFunction
+                        data={exportData}
+                        fileName='Sales_Report'
+                        dateRange={dateRange}
+                    />
                 </div>
             </div>
 
@@ -461,10 +490,6 @@ const OperationsSalesReport = () => {
             </div>
 
             <div className='flex items-center justify-end space-x-2 py-4'>
-                <div className='text-muted-foreground flex-1 text-sm'>
-                    {table.getFilteredSelectedRowModel().rows.length} of{' '}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
-                </div>
                 <div className='space-x-2'>
                     <Button
                         variant='outline'

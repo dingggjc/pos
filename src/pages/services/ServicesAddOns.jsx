@@ -137,30 +137,30 @@ const data = [
 ];
 
 const columns = [
-    {
-        id: 'select',
-        header: ({ table }) => (
-            <Checkbox
-                checked={
-                    table.getIsAllPageRowsSelected() ||
-                    (table.getIsSomePageRowsSelected() && 'indeterminate')
-                }
-                onCheckedChange={(value) =>
-                    table.toggleAllPageRowsSelected(!!value)
-                }
-                aria-label='Select all'
-            />
-        ),
-        cell: ({ row }) => (
-            <Checkbox
-                checked={row.getIsSelected()}
-                onCheckedChange={(value) => row.toggleSelected(!!value)}
-                aria-label='Select row'
-            />
-        ),
-        enableSorting: false,
-        enableHiding: false,
-    },
+    // {
+    //     id: 'select',
+    //     header: ({ table }) => (
+    //         <Checkbox
+    //             checked={
+    //                 table.getIsAllPageRowsSelected() ||
+    //                 (table.getIsSomePageRowsSelected() && 'indeterminate')
+    //             }
+    //             onCheckedChange={(value) =>
+    //                 table.toggleAllPageRowsSelected(!!value)
+    //             }
+    //             aria-label='Select all'
+    //         />
+    //     ),
+    //     cell: ({ row }) => (
+    //         <Checkbox
+    //             checked={row.getIsSelected()}
+    //             onCheckedChange={(value) => row.toggleSelected(!!value)}
+    //             aria-label='Select row'
+    //         />
+    //     ),
+    //     enableSorting: false,
+    //     enableHiding: false,
+    // },
 
     {
         accessorKey: 'addOnsName',
@@ -171,7 +171,7 @@ const columns = [
                     column.toggleSorting(column.getIsSorted() === 'asc')
                 }
             >
-                Name
+                Add Ons Name
                 <ArrowUpDown className='ml-2 h-4 w-4' />
             </Button>
         ),
@@ -378,10 +378,10 @@ const ServicesAddOns = () => {
             </div>
 
             <div className='flex items-center justify-end space-x-2 py-4'>
-                <div className='text-muted-foreground flex-1 text-sm'>
+                {/* <div className='text-muted-foreground flex-1 text-sm'>
                     {table.getFilteredSelectedRowModel().rows.length} of{' '}
                     {table.getFilteredRowModel().rows.length} row(s) selected.
-                </div>
+                </div> */}
                 <div className='space-x-2'>
                     <Button
                         variant='outline'
