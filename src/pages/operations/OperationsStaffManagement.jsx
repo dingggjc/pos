@@ -6,7 +6,14 @@ import {
     getFilteredRowModel,
     useReactTable,
 } from '@tanstack/react-table';
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react';
+import {
+    ArrowUpDown,
+    CheckCircle,
+    ChevronDown,
+    MoreHorizontal,
+    PauseCircle,
+    XCircle,
+} from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -27,112 +34,40 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
 
 const data = [
     {
-        addOnsName: 'Ultimate Foam Kit',
-        category: 'Exterior',
-        product: 'Foam Cannon',
-        price: 29.99,
-        dateAdded: '2025-06-01',
+        id: 'w1',
+        name: 'John Santos',
+        shift: '8 AM - 5 PM',
+        status: 'Active',
+        assignedToday: 3,
+        dateHired: '2023-01-10',
     },
     {
-        addOnsName: 'Towel Pro Pack',
-        category: 'Interior',
-        product: 'Microfiber Towel Set',
-        price: 19.99,
-        dateAdded: '2025-06-03',
+        id: 'w2',
+        name: 'Maria Lopez',
+        shift: '9 AM - 6 PM',
+        status: 'On Leave',
+        assignedToday: 0,
+        dateHired: '2022-11-05',
     },
     {
-        addOnsName: 'Shampoo Supreme',
-        category: 'Exterior',
-        product: 'Car Shampoo',
-        price: 49.99,
-        dateAdded: '2025-06-05',
+        id: 'w3',
+        name: 'Kevin Reyes',
+        shift: '10 AM - 7 PM',
+        status: 'Active',
+        assignedToday: 1,
+        dateHired: '2021-03-21',
     },
     {
-        addOnsName: 'Brush Essentials',
-        category: 'Detailing Tools',
-        product: 'Detailing Brush Kit',
-        price: 39.5,
-        dateAdded: '2025-06-06',
-    },
-    {
-        addOnsName: 'Tire Spark Pack',
-        category: 'Wheels & Tires',
-        product: 'Tire & Rim Cleaner',
-        price: 25.0,
-        dateAdded: '2025-06-08',
-    },
-    {
-        addOnsName: 'Brush & Shine',
-        category: 'Wheels & Tires',
-        product: 'Wheel Brush',
-        price: 15.99,
-        dateAdded: '2025-06-09',
-    },
-    {
-        addOnsName: 'Smooth Surface Kit',
-        category: 'Exterior',
-        product: 'Clay Bar Kit',
-        price: 34.99,
-        dateAdded: '2025-06-10',
-    },
-    {
-        addOnsName: 'Headlight Hero',
-        category: 'Restoration',
-        product: 'Headlight Restorer',
-        price: 22.5,
-        dateAdded: '2025-06-11',
-    },
-    {
-        addOnsName: 'Fresh Cabin',
-        category: 'Interior',
-        product: 'Interior Cleaner',
-        price: 18.99,
-        dateAdded: '2025-06-12',
-    },
-    {
-        addOnsName: 'Leather Luxe',
-        category: 'Interior',
-        product: 'Leather Conditioner',
-        price: 27.5,
-        dateAdded: '2025-06-13',
-    },
-    {
-        addOnsName: 'Shine Pads Set',
-        category: 'Accessories',
-        product: 'Wax Applicator Pads',
-        price: 12.99,
-        dateAdded: '2025-06-14',
-    },
-    {
-        addOnsName: 'Quick Dry Duo',
-        category: 'Exterior',
-        product: 'Drying Towel',
-        price: 24.99,
-        dateAdded: '2025-06-15',
-    },
-    {
-        addOnsName: 'Trim Revive Kit',
-        category: 'Restoration',
-        product: 'Trim Restorer',
-        price: 16.5,
-        dateAdded: '2025-06-16',
-    },
-    {
-        addOnsName: 'Crystal View',
-        category: 'Glass',
-        product: 'Glass Cleaner',
-        price: 14.99,
-        dateAdded: '2025-06-17',
-    },
-    {
-        addOnsName: 'Pressure Pro',
-        category: 'Exterior',
-        product: 'Pressure Washer',
-        price: 199.99,
-        dateAdded: '2025-06-18',
+        id: 'w4',
+        name: 'Jenny Cruz',
+        shift: '8 AM - 5 PM',
+        status: 'Resigned',
+        assignedToday: 0,
+        dateHired: '2020-06-15',
     },
 ];
 
@@ -161,9 +96,8 @@ const columns = [
         enableSorting: false,
         enableHiding: false,
     },
-
     {
-        accessorKey: 'addOnsName',
+        accessorKey: 'name',
         header: ({ column }) => (
             <Button
                 variant='ghost'
@@ -176,52 +110,87 @@ const columns = [
             </Button>
         ),
         cell: ({ row }) => (
-            <div className='font-medium'>{row.getValue('addOnsName')}</div>
+            <div className='font-medium'>{row.getValue('name')}</div>
         ),
     },
     {
-        accessorKey: 'category',
-        header: 'Category',
-        cell: ({ row }) => (
-            <div className='capitalize'>{row.getValue('category')}</div>
-        ),
+        accessorKey: 'assignedToday',
+        header: 'Assigned Today',
+        cell: ({ row }) => <div>{row.getValue('assignedToday')}</div>,
     },
 
     {
-        accessorKey: 'product',
-        header: 'Product',
-        cell: ({ row }) => (
-            <div className='capitalize'>{row.getValue('product')}</div>
-        ),
-    },
-
-    {
-        accessorKey: 'price',
-        header: () => <div>Price</div>,
+        id: 'available',
+        header: 'Available',
         cell: ({ row }) => {
-            const amount = parseFloat(row.getValue('price'));
-            const formatted = new Intl.NumberFormat('en-PH', {
-                style: 'currency',
-                currency: 'PHP',
-            }).format(amount);
-            return <div>{formatted}</div>;
+            const status = row.getValue('status');
+            const free = status === 'Active';
+
+            const icon = free ? (
+                <CheckCircle className='w-4 h-4 mr-1' />
+            ) : (
+                <XCircle className='w-4 h-4 mr-1' />
+            );
+
+            return (
+                <Badge
+                    className={`inline-flex items-center gap-1 border ${
+                        free
+                            ? 'bg-blue-200 text-blue-700'
+                            : 'bg-muted text-muted-foreground'
+                    }`}
+                >
+                    {icon}
+                    {free ? 'Yes' : 'No'}
+                </Badge>
+            );
+        },
+        enableSorting: false,
+    },
+
+    {
+        accessorKey: 'status',
+        header: 'Status',
+        cell: ({ row }) => {
+            const status = row.getValue('status');
+
+            let color = '';
+            let icon = null;
+
+            if (status === 'Active') {
+                color = 'bg-green-200 text-green-700';
+                icon = <CheckCircle className='w-4 h-4 mr-1' />;
+            } else if (status === 'On Leave') {
+                color = 'bg-yellow-200 text-yellow-700';
+                icon = <PauseCircle className='w-4 h-4 mr-1' />;
+            } else {
+                color = 'bg-red-200 text-red-700';
+                icon = <XCircle className='w-4 h-4 mr-1' />;
+            }
+
+            return (
+                <Badge
+                    className={`inline-flex items-center gap-1 border ${color}`}
+                >
+                    {icon}
+                    {status}
+                </Badge>
+            );
         },
     },
 
     {
-        accessorKey: 'dateAdded',
-        header: ' Date Added',
+        accessorKey: 'dateHired',
+        header: 'Date Hired',
         cell: ({ row }) => (
-            <div className='italic'>{row.getValue('dateAdded')}</div>
+            <div className='italic'>{row.getValue('dateHired')}</div>
         ),
     },
-
     {
         id: 'actions',
         enableHiding: false,
         cell: ({ row }) => {
-            const payment = row.original;
-
+            const staff = row.original;
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -234,15 +203,14 @@ const columns = [
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuItem
                             onClick={() =>
-                                navigator.clipboard.writeText(payment.id)
+                                navigator.clipboard.writeText(staff.id)
                             }
                         >
-                            Add Product
+                            Copy ID
                         </DropdownMenuItem>
-                        {/* <DropdownMenuSeparator /> */}
                         <DropdownMenuItem>Edit</DropdownMenuItem>
                         <DropdownMenuItem className='text-red-600'>
-                            Delete
+                            Terminate
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
@@ -251,7 +219,7 @@ const columns = [
     },
 ];
 
-const ManageAddOns = () => {
+const OperationsStaffManagement = () => {
     const [sorting, setSorting] = useState([]);
     const [columnFilters, setColumnFilters] = useState([]);
     const [columnVisibility, setColumnVisibility] = useState({});
@@ -284,16 +252,14 @@ const ManageAddOns = () => {
 
     return (
         <div className='globalContainer'>
-            <div className='text-2xl font-bold mb-6'>Manage Add Ons</div>
+            <div className='text-2xl font-bold mb-6'>Manage Staff</div>
             <div className='flex items-center py-4'>
                 <Input
-                    placeholder='Filter Packages...'
-                    value={
-                        table.getColumn('addOnsName')?.getFilterValue() ?? ''
-                    }
+                    placeholder='Search for Name ...'
+                    value={table.getColumn('name')?.getFilterValue() ?? ''}
                     onChange={(event) =>
                         table
-                            .getColumn('addOnsName')
+                            .getColumn('name')
                             ?.setFilterValue(event.target.value)
                     }
                     className='max-w-sm'
@@ -405,4 +371,4 @@ const ManageAddOns = () => {
     );
 };
 
-export default ManageAddOns;
+export default OperationsStaffManagement;

@@ -8,12 +8,28 @@ import RouteLoader from '@/components/loader/RouteLoader';
 
 const Dashboard = lazy(() => import('@/pages/dashboard/Dashboard'));
 const Transaction = lazy(() => import('@/pages/dashboard/Transaction'));
-const ManageProducts = lazy(() => import('@/pages/dashboard/ManageProducts'));
-const ManageCategories = lazy(() =>
-    import('@/pages/dashboard/ManageCategories')
+const ServicesProducts = lazy(() =>
+    import('@/pages/services/ServicesProducts')
 );
-const ManagePackages = lazy(() => import('@/pages/dashboard/ManagePackages'));
-const ManageAddOns = lazy(() => import('@/pages/dashboard/ManageAddOns'));
+const ServicesCategories = lazy(() =>
+    import('@/pages/services/ServicesCategories')
+);
+const ServicesPackages = lazy(() =>
+    import('@/pages/services/ServicesPackages')
+);
+const ServicesAddOns = lazy(() => import('@/pages/services/ServicesAddOns'));
+
+const OperationsStaffManagement = lazy(() =>
+    import('@/pages/operations/OperationsStaffManagement')
+);
+
+const OperationsSalesReport = lazy(() =>
+    import('@/pages/operations/OperationsSalesReport')
+);
+
+const OperationsTransactionReport = lazy(() =>
+    import('@/pages/operations/OperationsTransactionReport')
+);
 
 const UnauthenticatedRoute = () => {
     return (
@@ -39,34 +55,58 @@ const UnauthenticatedRoute = () => {
                     }
                 />
                 <Route
-                    path='manage-products'
+                    path='services-products'
                     element={
                         <Suspense fallback={<RouteLoader />}>
-                            <ManageProducts />
+                            <ServicesProducts />
                         </Suspense>
                     }
                 />
                 <Route
-                    path='manage-categories'
+                    path='services-categories'
                     element={
                         <Suspense fallback={<RouteLoader />}>
-                            <ManageCategories />
+                            <ServicesCategories />
                         </Suspense>
                     }
                 />
                 <Route
-                    path='manage-packages'
+                    path='services-packages'
                     element={
                         <Suspense fallback={<RouteLoader />}>
-                            <ManagePackages />
+                            <ServicesPackages />
                         </Suspense>
                     }
                 />
                 <Route
-                    path='manage-addons'
+                    path='services-addons'
                     element={
                         <Suspense fallback={<RouteLoader />}>
-                            <ManageAddOns />
+                            <ServicesAddOns />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path='operations-staff'
+                    element={
+                        <Suspense fallback={<RouteLoader />}>
+                            <OperationsStaffManagement />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path='operations-sales-report'
+                    element={
+                        <Suspense fallback={<RouteLoader />}>
+                            <OperationsSalesReport />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path='operations-transaction-report'
+                    element={
+                        <Suspense fallback={<RouteLoader />}>
+                            <OperationsTransactionReport />
                         </Suspense>
                     }
                 />

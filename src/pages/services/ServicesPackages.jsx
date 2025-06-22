@@ -6,14 +6,7 @@ import {
     getFilteredRowModel,
     useReactTable,
 } from '@tanstack/react-table';
-import {
-    AlertTriangle,
-    ArrowUpDown,
-    CheckCircle2,
-    ChevronDown,
-    MoreHorizontal,
-    XCircle,
-} from 'lucide-react';
+import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -34,130 +27,115 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
 
 const data = [
     {
-        id: 'm5gr84i9',
-        amount: 316,
+        packageName: 'Ultimate Foam Kit',
+        category: 'Exterior',
         product: 'Foam Cannon',
         price: 29.99,
-        stocks: 120,
         dateAdded: '2025-06-01',
     },
     {
-        id: '3u1reuv4',
-        amount: 242,
+        packageName: 'Towel Pro Pack',
+        category: 'Interior',
         product: 'Microfiber Towel Set',
         price: 19.99,
-        stocks: 80,
         dateAdded: '2025-06-03',
     },
     {
-        id: 'derv1ws0',
-        amount: 837,
+        packageName: 'Shampoo Supreme',
+        category: 'Exterior',
         product: 'Car Shampoo',
         price: 49.99,
-        stocks: 30,
         dateAdded: '2025-06-05',
     },
     {
-        id: '5kma53ae',
-        amount: 874,
+        packageName: 'Brush Essentials',
+        category: 'Detailing Tools',
         product: 'Detailing Brush Kit',
         price: 39.5,
-        stocks: 200,
         dateAdded: '2025-06-06',
     },
     {
-        id: 'bhqecj4p',
-        amount: 721,
+        packageName: 'Tire Spark Pack',
+        category: 'Wheels & Tires',
         product: 'Tire & Rim Cleaner',
         price: 25.0,
-        stocks: 0,
         dateAdded: '2025-06-08',
     },
     {
-        id: 'dse231s',
-        amount: 800,
+        packageName: 'Brush & Shine',
+        category: 'Wheels & Tires',
         product: 'Wheel Brush',
         price: 15.99,
-        stocks: 45,
         dateAdded: '2025-06-09',
     },
     {
-        id: 'klo342d',
-        amount: 532,
+        packageName: 'Smooth Surface Kit',
+        category: 'Exterior',
         product: 'Clay Bar Kit',
         price: 34.99,
-        stocks: 25,
         dateAdded: '2025-06-10',
     },
     {
-        id: 'plm923n',
-        amount: 421,
+        packageName: 'Headlight Hero',
+        category: 'Restoration',
         product: 'Headlight Restorer',
         price: 22.5,
-        stocks: 15,
         dateAdded: '2025-06-11',
     },
     {
-        id: 'qwe789r',
-        amount: 689,
+        packageName: 'Fresh Cabin',
+        category: 'Interior',
         product: 'Interior Cleaner',
         price: 18.99,
-        stocks: 60,
         dateAdded: '2025-06-12',
     },
     {
-        id: 'asd456t',
-        amount: 345,
+        packageName: 'Leather Luxe',
+        category: 'Interior',
         product: 'Leather Conditioner',
         price: 27.5,
-        stocks: 30,
         dateAdded: '2025-06-13',
     },
     {
-        id: 'zxc123y',
-        amount: 278,
+        packageName: 'Shine Pads Set',
+        category: 'Accessories',
         product: 'Wax Applicator Pads',
         price: 12.99,
-        stocks: 85,
         dateAdded: '2025-06-14',
     },
     {
-        id: 'vbn789u',
-        amount: 512,
+        packageName: 'Quick Dry Duo',
+        category: 'Exterior',
         product: 'Drying Towel',
         price: 24.99,
-        stocks: 40,
         dateAdded: '2025-06-15',
     },
     {
-        id: 'jkl654i',
-        amount: 387,
+        packageName: 'Trim Revive Kit',
+        category: 'Restoration',
         product: 'Trim Restorer',
         price: 16.5,
-        stocks: 20,
         dateAdded: '2025-06-16',
     },
     {
-        id: 'tyu321o',
-        amount: 623,
+        packageName: 'Crystal View',
+        category: 'Glass',
         product: 'Glass Cleaner',
         price: 14.99,
-        stocks: 55,
         dateAdded: '2025-06-17',
     },
     {
-        id: 'ghj987p',
-        amount: 456,
+        packageName: 'Pressure Pro',
+        category: 'Exterior',
         product: 'Pressure Washer',
         price: 199.99,
-        stocks: 10,
         dateAdded: '2025-06-18',
     },
 ];
+
 const columns = [
     {
         id: 'select',
@@ -185,7 +163,7 @@ const columns = [
     },
 
     {
-        accessorKey: 'product',
+        accessorKey: 'packageName',
         header: ({ column }) => (
             <Button
                 variant='ghost'
@@ -193,12 +171,27 @@ const columns = [
                     column.toggleSorting(column.getIsSorted() === 'asc')
                 }
             >
-                Product Name
+                Package Name
                 <ArrowUpDown className='ml-2 h-4 w-4' />
             </Button>
         ),
         cell: ({ row }) => (
-            <div className='font-medium'>{row.getValue('product')}</div>
+            <div className='font-medium'>{row.getValue('packageName')}</div>
+        ),
+    },
+    {
+        accessorKey: 'category',
+        header: 'Category',
+        cell: ({ row }) => (
+            <div className='capitalize'>{row.getValue('category')}</div>
+        ),
+    },
+
+    {
+        accessorKey: 'product',
+        header: 'Product',
+        cell: ({ row }) => (
+            <div className='capitalize'>{row.getValue('product')}</div>
         ),
     },
 
@@ -212,43 +205,6 @@ const columns = [
                 currency: 'PHP',
             }).format(amount);
             return <div>{formatted}</div>;
-        },
-    },
-    {
-        accessorKey: 'stocks',
-        header: 'Stocks',
-        cell: ({ row }) => (
-            <div className='capitalize'>{row.getValue('stocks')}</div>
-        ),
-    },
-    {
-        id: 'status',
-        header: 'Stock Status',
-        cell: ({ row }) => {
-            const stock = row.original.stocks;
-
-            if (stock > 50) {
-                return (
-                    <Badge className='flex items-center gap-1 border-green-400  bg-green-100 text-green-600'>
-                        <CheckCircle2 className='h-3 w-3' />
-                        In Stock
-                    </Badge>
-                );
-            } else if (stock > 0) {
-                return (
-                    <Badge className='flex items-center gap-1 border-yellow-400 bg-yellow-50 text-yellow-600 '>
-                        <AlertTriangle className='h-3 w-3' />
-                        Low Stock
-                    </Badge>
-                );
-            } else {
-                return (
-                    <Badge className='flex items-center gap-1 border-red-400 bg-red-50 text-red-600'>
-                        <XCircle className='h-3 w-3' />
-                        Out of Stock
-                    </Badge>
-                );
-            }
         },
     },
 
@@ -295,7 +251,7 @@ const columns = [
     },
 ];
 
-const ManageProducts = () => {
+const ServicesPackages = () => {
     const [sorting, setSorting] = useState([]);
     const [columnFilters, setColumnFilters] = useState([]);
     const [columnVisibility, setColumnVisibility] = useState({});
@@ -328,14 +284,16 @@ const ManageProducts = () => {
 
     return (
         <div className='globalContainer'>
-            <div className='text-2xl font-bold mb-6'>Manage Products</div>
+            <div className='text-2xl font-bold mb-6'>Manage Packages</div>
             <div className='flex items-center py-4'>
                 <Input
-                    placeholder='Filter product...'
-                    value={table.getColumn('product')?.getFilterValue() ?? ''}
+                    placeholder='Filter Packages...'
+                    value={
+                        table.getColumn('packageName')?.getFilterValue() ?? ''
+                    }
                     onChange={(event) =>
                         table
-                            .getColumn('product')
+                            .getColumn('packageName')
                             ?.setFilterValue(event.target.value)
                     }
                     className='max-w-sm'
@@ -447,4 +405,4 @@ const ManageProducts = () => {
     );
 };
 
-export default ManageProducts;
+export default ServicesPackages;

@@ -231,7 +231,7 @@ const columns = [
     },
 ];
 
-const ManageCategories = () => {
+const ServicesCategories = () => {
     const [sorting, setSorting] = useState([]);
     const [columnFilters, setColumnFilters] = useState([]);
     const [columnVisibility, setColumnVisibility] = useState({});
@@ -383,4 +383,4 @@ const ManageCategories = () => {
     );
 };
 
-export default ManageCategories;
+export default ServicesCategories;
